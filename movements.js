@@ -10,7 +10,9 @@ function moveObject(object) {
     }
     if (keys.ArrowDown) {
         object.velocity.y = 0
-        object.position.y += object.speed.down;
+        if (!object.colliding.bottom) {
+            object.position.y -= object.speed.down;
+        }
     }
     if (keys.ArrowRight) {
         if (!object.colliding.right) {

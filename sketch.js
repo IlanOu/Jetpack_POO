@@ -4,8 +4,6 @@ function setup() {
   createCanvas(400, 400);
 }
 
-
-
 // -------------------------------------------- Update
 
 function draw() {

@@ -35,7 +35,7 @@ function processColliders(object, limits) {
 
         if (keys.ArrowUp) {
 
-            object.position.y = limits.position.y + limits.size.h - 1
+            object.position.y = limits.position.y + limits.size.h
         }
         object.velocity.y = 0
         object.colliding.top = true

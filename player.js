@@ -13,7 +13,7 @@ let player = {
     },
     speed: {
         up: 5,
-        down: 0,
+        down: -3,
         right: 5,
         left: 5
     },
@@ -79,6 +79,13 @@ function drawPlayer() {
         stroke(fire.colour.r, fire.colour.g, fire.colour.b)
         fill(fire.colour.r, fire.colour.g, fire.colour.b)
         rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h);
+        stroke(0, 0, 0)
+    }
+
+    if (keys.ArrowDown) {
+        stroke(fire.colour.r, fire.colour.g, fire.colour.b)
+        fill(fire.colour.r, fire.colour.g, fire.colour.b)
+        rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h/2);
         stroke(0, 0, 0)
     }
 
