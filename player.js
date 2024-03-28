@@ -23,8 +23,11 @@ let player = {
         right: false,
         left: false
     },
-    isAlive: true
+    isAlive: true,
+    life: 4
 };
+
+//! number of life = length of lifeImage
 
 
 let jetpack = {

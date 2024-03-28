@@ -17,7 +17,8 @@ let rocket_laser = {
         r: 255,
         g: 0,
         b: 0,
-    }
+    },
+    alreadyHitPlayer : false
 };
 
 let rocket = {
@@ -39,7 +40,8 @@ let rocket = {
         r: 255,
         g: 150,
         b: 0,
-    }
+    },
+    alreadyHitPlayer : false
 };
 
 
@@ -54,6 +56,9 @@ function launchRocket(rocket) {
         rocket.position.y = randomRange(30, height - 30)
         // rocket.position.speed += 1
         points += 1
+        
+        // reset rocket attack
+        rocket.alreadyHitPlayer = false
     }
 
     
@@ -83,8 +88,12 @@ function processKillPlayer(player, rocket){
     rocketCollider.size.h *= 2;
     // rocketCollider.position.x -= rocketCollider.size.w/3;
     rocketCollider.position.y -= rocketCollider.size.h/4;
-    if (rectIsInRect(player, rocketCollider)){
-        player.isAlive = false
+    if (rectIsInRect(player, rocketCollider) && rocket.alreadyHitPlayer == false){
+        player.life -= 1
+        rocket.alreadyHitPlayer = true
+        if (player.life == 0) {
+            player.isAlive = false
+        }
     }
     return player
 }
