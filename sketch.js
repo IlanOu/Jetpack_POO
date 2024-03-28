@@ -1,8 +1,10 @@
 // -------------------------------------------- Setup
-
+lifeImage = 0
 function setup() {
   createCanvas(400, 400);
 
+  //* index is player.life
+  lifeImage = [loadImage('assets/lifes/1.png'), loadImage('assets/lifes/2.png'), loadImage('assets/lifes/3.png'),loadImage('assets/lifes/4.png'),loadImage('assets/lifes/5.png')]
 }
 
 
@@ -52,6 +54,9 @@ function draw() {
     textSize(20)
     text('Score : ' + points, 10, 20);
 
+    // draw life
+    image(lifeImage[player.life], 300, 5, 100, 20)
+
   } else {
     fill(0, 0, 0)
     noStroke()
@@ -59,7 +64,6 @@ function draw() {
     text('💀 Vous êtes mort', 0, 175);
     textSize(20)
     text('Score : ' + points, 150, 225);
-
 
 
     drawReplayButton(replayButton)
