@@ -48,6 +48,7 @@ let limitLeft = {
 function drawBorders() {
     // Draw borders / limits
     stroke(255, 255, 255)
+    fill(255,255,255)
     rect(limitTop.position.x, limitTop.position.y, limitTop.size.w, limitTop.size.h);
     rect(limitBottom.position.x, limitBottom.position.y, limitBottom.size.w, limitBottom.size.h);
     rect(limitRight.position.x, limitRight.position.y, limitRight.size.w, limitRight.size.h);

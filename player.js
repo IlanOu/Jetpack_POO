@@ -22,7 +22,8 @@ let player = {
         bottom: false,
         right: false,
         left: false
-    }
+    },
+    isAlive: true
 };
 
 
