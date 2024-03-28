@@ -1,7 +1,3 @@
-function randomRange(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
 let rocket_laser = {
     position: {
         x: 400,
@@ -49,13 +45,18 @@ let rocket = {
 
 function launchRocket(rocket) {
 
+    
+
     if (rocket.position.x + rocket.size.w > 0) {
         rocket.position.x -= rocket.speed.left
     } else {
         rocket.position.x = width
         rocket.position.y = randomRange(30, height - 30)
         // rocket.position.speed += 1
+        points += 1
     }
+
+    
 
     
 }

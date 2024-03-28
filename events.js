@@ -30,3 +30,25 @@ function keyReleased() {
         keys.ArrowRight = false;
     }
 }
+
+let buttonsListening = []
+
+
+function mouseClicked() {
+    buttonsListening.forEach(button => {
+        if (pointIsInRect(button, {
+                x: mouseX,
+                y: mouseY
+            })) {
+            button.clicked = true
+            button.toggle = !button.toggle 
+            button.callback(button)
+        }
+    });
+}
+
+function listenClickEvent(button) {
+    if (!buttonsListening.includes(button)){
+        buttonsListening.push(button)
+    }
+}

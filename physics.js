@@ -13,16 +13,7 @@ function applyGravity(object, acceleration, friction) {
 
 // --------------------- Colliders
 
-function rectIsInRect(object1, object2) {
-    if (object1.position.x + object1.size.w <= object2.position.x + object2.size.w &&
-        object1.position.x >= object2.position.x &&
-        object1.position.y + object1.size.h <= object2.position.y + object2.size.h &&
-        object1.position.y >= object2.position.y) {
-        return true;
-    } else {
-        return false;
-    }
-}
+
 
 function processColliders(object, limits) {
 
