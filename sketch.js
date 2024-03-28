@@ -5,6 +5,8 @@ function setup() {
 
   //* index is player.life
   lifeImage = [loadImage('assets/lifes/1.png'), loadImage('assets/lifes/2.png'), loadImage('assets/lifes/3.png'),loadImage('assets/lifes/4.png'),loadImage('assets/lifes/5.png')]
+
+  setupClient()
 }
 
 
@@ -15,7 +17,7 @@ function setup() {
 
 function draw() {
   background(220);
-
+ 
   if (player.isAlive == true) {
 
 
