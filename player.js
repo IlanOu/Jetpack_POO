@@ -24,7 +24,8 @@ let player = {
         left: false
     },
     isAlive: true,
-    life: 4
+    life: 4,
+    isFlying: false
 };
 
 //! number of life = length of lifeImage
@@ -79,21 +80,20 @@ function drawPlayer() {
     rect(jetpack.position.x, jetpack.position.y, jetpack.size.w, jetpack.size.h);
 
     // Fire texture
-    if (playingWithKeys){
-        if (keys.ArrowUp) {
-            stroke(fire.colour.r, fire.colour.g, fire.colour.b)
-            fill(fire.colour.r, fire.colour.g, fire.colour.b)
-            rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h);
-            stroke(0, 0, 0)
-        }
-    
-        if (keys.ArrowDown) {
-            stroke(fire.colour.r, fire.colour.g, fire.colour.b)
-            fill(fire.colour.r, fire.colour.g, fire.colour.b)
-            rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h/2);
-            stroke(0, 0, 0)
-        }
+    if (keys.ArrowUp || player.isFlying) {
+        stroke(fire.colour.r, fire.colour.g, fire.colour.b)
+        fill(fire.colour.r, fire.colour.g, fire.colour.b)
+        rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h);
+        stroke(0, 0, 0)
     }
+
+    if (keys.ArrowDown) {
+        stroke(fire.colour.r, fire.colour.g, fire.colour.b)
+        fill(fire.colour.r, fire.colour.g, fire.colour.b)
+        rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h/2);
+        stroke(0, 0, 0)
+    }
+    
 
     // --- Player
     fill(255, 255, 255)

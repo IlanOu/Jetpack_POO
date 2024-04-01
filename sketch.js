@@ -27,11 +27,10 @@ function draw() {
     if (player.isAlive == true) {
   
   
-      if (playingWithKeys){
-        if (!player.colliding.bottom && !keys.ArrowDown) {
-          player = applyGravity(player, gravity, friction);
-        }
+      if (!player.colliding.bottom && !keys.ArrowDown) {
+        player = applyGravity(player, gravity, friction);
       }
+      
 
       
   
@@ -47,7 +46,7 @@ function draw() {
       // Draw player
       drawPlayer()
   
-      if (isFlying){
+      if (player.isFlying){
           fly(player);
       }
 

@@ -39,16 +39,16 @@ function moveObjectWithSocket(value, object, orientation="horizontal"){
         }
     }
     else if (orientation == "horizontal"){
-        if (value > object.position.x) {
-            if (!object.colliding.right) {
-                object.position.x += object.speed.right;
-            }
+        // if (value > object.position.x) {
+        if (!object.colliding.right && !object.colliding.left) {
+            object.position.x += value;
         }
-        if (value < object.position.x) {
-            if (!object.colliding.left) {
-                object.position.x -= object.speed.left;
-            }
-        }
+        // }
+        // if (value < object.position.x) {
+        //     if (!object.colliding.left) {
+        //         object.position.x -= object.speed.left;
+        //     }
+        // }
     }else {
         console.log("You can only move with : horizontal or vertical")
     }

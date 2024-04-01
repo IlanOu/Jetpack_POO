@@ -1,4 +1,3 @@
-let isFlying = false;
 let playPressed = false;
 
 function processDistance(value){
@@ -8,15 +7,15 @@ function processDistance(value){
 }
 
 function processOrientation(value){
-    let distanceMapped = mapRange(int(value), 0, 100, 50, 350)
+    let distanceMapped = mapRange(int(value), 0, 100, -10, 10)
     moveObjectWithSocket(distanceMapped, player, "horizontal")
 }
 
 function processButton(value){
     if (int(value) == 1){
-        isFlying = true;
+        player.isFlying = true;
     }else{
-        isFlying = false;
+        player.isFlying = false;
     }
 }
 
