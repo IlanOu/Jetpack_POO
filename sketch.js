@@ -6,6 +6,7 @@ function setup() {
   //* index is player.life
   lifeImage = [loadImage('assets/lifes/1.png'), loadImage('assets/lifes/2.png'), loadImage('assets/lifes/3.png'),loadImage('assets/lifes/4.png'),loadImage('assets/lifes/5.png')]
 
+
   setupClient()
 }
 
@@ -13,6 +14,9 @@ function setup() {
 
 
 // -------------------------------------------- Update
+
+
+
 
 
 function draw() {
@@ -23,9 +27,13 @@ function draw() {
     if (player.isAlive == true) {
   
   
-      if (!player.colliding.bottom && !keys.ArrowDown) {
-        player = applyGravity(player, gravity, friction);
+      if (playingWithKeys){
+        if (!player.colliding.bottom && !keys.ArrowDown) {
+          player = applyGravity(player, gravity, friction);
+        }
       }
+
+      
   
       // Collisions with map borders
       playerCollideMap()
@@ -39,7 +47,11 @@ function draw() {
       // Draw player
       drawPlayer()
   
-  
+      if (isFlying){
+          fly(player);
+      }
+
+
       drawRocket(rocket_laser)
       launchRocket(rocket_laser)
       drawRocket(rocket)
@@ -61,6 +73,11 @@ function draw() {
       // draw life
       image(lifeImage[player.life], 300, 5, 100, 20)
   
+
+      if (playPressed){
+        playPressed = false;
+      }
+
     } else {
       fill(0, 0, 0)
       noStroke()
@@ -71,6 +88,11 @@ function draw() {
   
   
       drawReplayButton(replayButton)
+
+      if (playPressed){
+        replayButton.callback(replayButton)
+        return
+      }
     }
   }else{
     fill(0, 0, 0)

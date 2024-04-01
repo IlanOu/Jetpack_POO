@@ -1,1 +1,3 @@
-points = 0
+let points = 0
+const playingWithKeys = true
+let connected = false

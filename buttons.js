@@ -30,8 +30,9 @@ let replayButton = {
 }
 
 function callbackButton(button) {
-    console.log("J'ai été appuyé par un bouton !" + button)
+    playPressed = false
     location.reload()
+    console.log("J'ai été appuyé par un bouton !" + button)
 }
 
 

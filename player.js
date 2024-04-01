@@ -12,10 +12,10 @@ let player = {
         y: 0
     },
     speed: {
-        up: 5,
+        up: 3,
         down: -3,
-        right: 5,
-        left: 5
+        right: 3,
+        left: 3
     },
     colliding: {
         top: false,
@@ -79,18 +79,20 @@ function drawPlayer() {
     rect(jetpack.position.x, jetpack.position.y, jetpack.size.w, jetpack.size.h);
 
     // Fire texture
-    if (keys.ArrowUp) {
-        stroke(fire.colour.r, fire.colour.g, fire.colour.b)
-        fill(fire.colour.r, fire.colour.g, fire.colour.b)
-        rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h);
-        stroke(0, 0, 0)
-    }
-
-    if (keys.ArrowDown) {
-        stroke(fire.colour.r, fire.colour.g, fire.colour.b)
-        fill(fire.colour.r, fire.colour.g, fire.colour.b)
-        rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h/2);
-        stroke(0, 0, 0)
+    if (playingWithKeys){
+        if (keys.ArrowUp) {
+            stroke(fire.colour.r, fire.colour.g, fire.colour.b)
+            fill(fire.colour.r, fire.colour.g, fire.colour.b)
+            rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h);
+            stroke(0, 0, 0)
+        }
+    
+        if (keys.ArrowDown) {
+            stroke(fire.colour.r, fire.colour.g, fire.colour.b)
+            fill(fire.colour.r, fire.colour.g, fire.colour.b)
+            rect(fire.position.x, fire.position.y, fire.size.w, fire.size.h/2);
+            stroke(0, 0, 0)
+        }
     }
 
     // --- Player
