@@ -2,11 +2,37 @@ import RPi.GPIO as GPIO
 import time
 
 
+class DistanceDelegate:
+    def __init__(self):
+        pass
+        
+    def far_away(self):
+        pass
+    
+    def close(self):
+        pass
+
+
+class DistanceTestDelegate(DistanceDelegate):
+    def __init__(self):
+        super().__init__()
+        self.verbose = True
+        
+    def far_away(self):
+        if self.verbose:
+            print("Le capteur est loin")
+    
+    def close(self):
+        if self.verbose:
+            print("Le capteur est proche")
+
+
 class DistanceSensor:
-    def __init__(self, trigger_pin, echo_pin):
+    def __init__(self, trigger_pin, echo_pin, delegate):
         self.trigger_pin = trigger_pin
         self.echo_pin = echo_pin
         self.setup_gpio()
+        self.delegate = delegate
 
     def setup_gpio(self):
         GPIO.setmode(GPIO.BCM)
@@ -30,6 +56,11 @@ class DistanceSensor:
 
         # Calculer la distance
         distance = pulse_duration * 17000 / 2.0
+        
+        if distance > 20:
+            self.delegate.far_away()
+        else:
+            self.delegate.close()
 
         return distance
 

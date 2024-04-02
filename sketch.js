@@ -22,7 +22,7 @@ function setup() {
 function draw() {
   background(220);
 
-  if (connected){
+  if (connected || !requiredSocket){
 
     if (player.isAlive == true) {
   

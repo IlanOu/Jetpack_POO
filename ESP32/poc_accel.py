@@ -1,13 +1,29 @@
 import machine
 import poc_tools
 
+
+
+class AccelDelegate:
+    def __init__(self):
+        pass
+        
+    def right(self):
+        pass
+        
+    def left(self):
+        pass
+
+
+
 class Accel():
-    def __init__(self, i2c, addr=0x68):
+    def __init__(self, i2c, addr=0x68, delegate=None):
         self.iic = i2c
         self.addr = addr
         self.iic.start()
         self.iic.writeto(self.addr, bytearray([107, 0]))
         self.iic.stop()
+        
+        self.delegate = delegate
         
         self.orientations = {
             "up": False,
@@ -58,7 +74,7 @@ class Accel():
         return vals  # returned in range of Int16
         # -32768 to 32767
         
-    def get_orientation(self):
+    def process(self):
         values = self.get_values()
         
         
@@ -112,5 +128,11 @@ class Accel():
             "x": poc_tools.map_value(self.points_x, -self.max_points, self.max_points, 0, 100),
             "y": poc_tools.map_value(self.points_y, -self.max_points, self.max_points, 0, 100)
             }
+        
+        if mapped_values["x"] > 50:
+            self.delegate.right()
+        else:
+            self.delegate.left()
+        
         return mapped_values
         
