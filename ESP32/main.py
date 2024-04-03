@@ -4,7 +4,6 @@ from poc_accel import *
 from poc_button import *
 from wireless_manager import *
 
-
 # ----- Accéléromètre
 
 
@@ -110,7 +109,6 @@ class Joystick:
             
             if self.buttonActive:
                 btnValue = self.button.process()
-            
                 if btnValue:
                     datasToSend += "btn-1///"
                 else:

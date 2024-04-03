@@ -93,6 +93,8 @@ class Client:
         self.trigger_pin = trigger_pin
         self.echo_pin = echo_pin
         
+        self.isOpened = False
+        
     def initialize(self):
         # Initialisation du client WebSocket
         ws = websocket.WebSocketApp(self.url,
@@ -110,31 +112,32 @@ class Client:
 
     def on_error(self, ws, message):
         print(f"Erreur : {message}")
+        self.isOpened = False
 
     def on_close(self, msg, a, b):
         print("Connexion fermée")
+        self.isOpened = False
 
     def on_open(self, ws):
         print("Connexion ouverte")
-        
-        # Creer une instance du capteur de distance
-        sensor = DistanceSensor(self.trigger_pin, self.echo_pin)
-        
-        try:
-            while True:
-                # Executer la mesure
+        self.isOpened = True
+
+
+
+if __name__ == "__main__":
+    client = Client("ws://192.168.40.62:3000", 14, 15)
+    client.initialize()
+    
+    # Creer une instance du capteur de distance
+    sensor = DistanceSensor(self.trigger_pin, self.echo_pin)
+    
+    while True:
+        if client.isOpened:
+            # Executer la mesure
                 distance = sensor.measure_distance()
                 distance = str(int(distance * 100)/100)
                 ws.send("dist-" + distance)
                 print("Send distance : " + distance)
                 time.sleep(0.25)
-                
-        except KeyboardInterrupt:
-            # Nettoyer les broches GPIO
-            sensor.cleanup()
-
-if __name__ == "__main__":    
-    client = Client("ws://192.168.40.62:3000", 14, 15)
-    client.initialize()
     
     
