@@ -3,6 +3,8 @@ from time import sleep
 from poc_accel import *
 from poc_button import *
 from wireless_manager import *
+from checker import Checker
+
 
 # ----- Accéléromètre
 
@@ -28,8 +30,6 @@ accelTestDelegate = AccelTestDelegate()
 # Création du capteur à partir de la classe Accel
 accelero1 = Accel(i2c,0x68, accelTestDelegate)
 
-accelero_active = True
-
 # --------- Bouton
 
 
@@ -53,8 +53,6 @@ buttonTestDelegate = ButtonTestDelegate()
 
 btn1 = Button(PIN_BUTTON_1, buttonTestDelegate)
 
-button_active = True
-
 
 # --------- Connect Websocket 
 
@@ -74,15 +72,17 @@ class WebsocketCallback(CommunicationCallback):
         print(f"Received {value}")
         
 
-socket_active = True
-
-if socket_active:
-    wirelessManager = WirelessManager(wsCallback=WebsocketCallback())
-
-    wirelessManager.process()
-    wirelessManager.sendDataToWS("--- Initialization ---")
 
 
+# ----------
+
+testAll = True
+
+allObjects = [btn1, accelero1]
+
+if testAll:
+    for obj in allObjects:
+        Checker.check(obj)
 
 
 class Joystick:
@@ -91,17 +91,18 @@ class Joystick:
         self.button = button
         self.wirelessManager = wirelessManager
         
-        self.socketActive = True
+        self.socketActive = False
+        self.accelActive = False
         self.buttonActive = True
-        self.accelActive = True
     
     
     def send_datas(self, datasToSend):
         wirelessManager.sendDataToWS(datasToSend)
     
     def process(self):
-        datasToSend = ""
+        
         if self.socketActive:
+            datasToSend = ""
             if self.accelActive:
                 orientation = self.accelerometer.process()
                 if int(orientation["x"]) != 0:
@@ -118,12 +119,17 @@ class Joystick:
             if datasToSend != "":
                 self.send_datas(datasToSend)
                 print("Send datas " + datasToSend)
+        else:
+            return None
 
 
 # --------- Boucle
+"""
+wirelessManager = WirelessManager(wsCallback=WebsocketCallback())
 
 joystick = Joystick(accelero1, btn1, wirelessManager)
 
 while True :
     joystick.process()
     sleep(0.25)
+"""

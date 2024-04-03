@@ -113,17 +113,17 @@ class Displayer:
         
         if classError != None:
             if classError.__class__:
-                messageToPrint += "\nNom de la classe: " + str(classError.__name__ + "()")
+                messageToPrint += "\nObjet testé: " + str(classError.__name__ + "()")
         
         
         # Show error with the LED 
         for state in ledDebug:
             ledOn = False
             timeToWait = 0
-            if "on" in state:
+            if state.get("on") != None:
                 ledOn = True 
                 timeToWait = state["on"]
-            elif "off" in state:
+            elif state.get("off") != None:
                 timeToWait = state["off"]
         
             Displayer.switchLed(ledOn)
@@ -143,4 +143,4 @@ class Displayer:
 
 
 # ----- Test -----
-Displayer.raiseResult("100")
+# Displayer.raiseResult("300")

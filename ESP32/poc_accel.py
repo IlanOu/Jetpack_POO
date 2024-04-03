@@ -1,6 +1,6 @@
 import machine
 import poc_tools
-
+from checker import CheckableClass
 
 
 class AccelDelegate:
@@ -42,62 +42,63 @@ class AccelTraductor:
         { "AcX":..., "AcY":..., "AcZ":..., "Tmp":..., "GyX":..., "GyY":..., "Gyz":... }
         """
         
-        if values && values["GyX"]:
-            if values["GyX"] > self.sensibility:
-                self.orientations["right"] = True
-                if (self.points_x < self.max_points):
-                    self.points_x += values["GyX"]
-            if values["GyX"] < -self.sensibility:
-                self.orientations["left"] = True
-                if (self.points_x > -self.max_points):
-                    self.points_x += values["GyX"]
-            if values["GyY"] > self.sensibility:
-                self.orientations["up"] = True
-                if (self.points_y < self.max_points):
-                    self.points_y += values["GyY"]
-            if values["GyY"] < -self.sensibility:
-                self.orientations["down"] = True
-                if (self.points_y > -self.max_points):
-                    self.points_y += values["GyY"]
-            else:
-                self.orientations = {
-                    "up": False,
-                    "down": False,
-                    "right": False,
-                    "left": False
-                }
-            
-                if self.points_x > self.decrement_speed_x:
-                    self.points_x -= self.decrement_speed_x
-                    self.decrement_speed_x *= self.lerp
-                elif self.points_x < -self.decrement_speed_x:
-                    self.points_x += self.decrement_speed_x
-                    self.decrement_speed_x *= self.lerp
+        if values:
+            if values["GyX"]:
+                if values["GyX"] > self.sensibility:
+                    self.orientations["right"] = True
+                    if (self.points_x < self.max_points):
+                        self.points_x += values["GyX"]
+                if values["GyX"] < -self.sensibility:
+                    self.orientations["left"] = True
+                    if (self.points_x > -self.max_points):
+                        self.points_x += values["GyX"]
+                if values["GyY"] > self.sensibility:
+                    self.orientations["up"] = True
+                    if (self.points_y < self.max_points):
+                        self.points_y += values["GyY"]
+                if values["GyY"] < -self.sensibility:
+                    self.orientations["down"] = True
+                    if (self.points_y > -self.max_points):
+                        self.points_y += values["GyY"]
                 else:
-                    self.points_x = 0
-                    self.decrement_speed_x = self.init_decrement_speed
-                    
-                if self.points_y > self.decrement_speed_y:
-                    self.points_y -= self.decrement_speed_y
-                    self.decrement_speed_y *= self.lerp
-                elif self.points_y < -self.decrement_speed_y:
-                    self.points_y += self.decrement_speed_y
-                    self.decrement_speed_y *= self.lerp
-                else:
-                    self.points_y = 0
-                    self.decrement_speed_y = self.init_decrement_speed
+                    self.orientations = {
+                        "up": False,
+                        "down": False,
+                        "right": False,
+                        "left": False
+                    }
                 
-            
-            mapped_values = {
-                "x": poc_tools.map_value(self.points_x, -self.max_points, self.max_points, 0, 100),
-                "y": poc_tools.map_value(self.points_y, -self.max_points, self.max_points, 0, 100)
-            }
-            
-            return mapped_values
-        else:
-            return None
+                    if self.points_x > self.decrement_speed_x:
+                        self.points_x -= self.decrement_speed_x
+                        self.decrement_speed_x *= self.lerp
+                    elif self.points_x < -self.decrement_speed_x:
+                        self.points_x += self.decrement_speed_x
+                        self.decrement_speed_x *= self.lerp
+                    else:
+                        self.points_x = 0
+                        self.decrement_speed_x = self.init_decrement_speed
+                        
+                    if self.points_y > self.decrement_speed_y:
+                        self.points_y -= self.decrement_speed_y
+                        self.decrement_speed_y *= self.lerp
+                    elif self.points_y < -self.decrement_speed_y:
+                        self.points_y += self.decrement_speed_y
+                        self.decrement_speed_y *= self.lerp
+                    else:
+                        self.points_y = 0
+                        self.decrement_speed_y = self.init_decrement_speed
+                    
+                
+                mapped_values = {
+                    "x": poc_tools.map_value(self.points_x, -self.max_points, self.max_points, 0, 100),
+                    "y": poc_tools.map_value(self.points_y, -self.max_points, self.max_points, 0, 100)
+                }
+                
+                return mapped_values
+        
+        return None
 
-class Accel():
+class Accel(CheckableClass):
     def __init__(self, i2c, addr=0x68, delegate=None):
         self.iic = i2c
         self.addr = addr
@@ -108,7 +109,13 @@ class Accel():
         self.delegate = delegate
         
         self.traductor = AccelTraductor()
-        
+    
+    
+    def test(self):
+        return {
+            "result": "100",
+            "class": self.__class__
+            }
 
     def get_raw_values(self):
         self.iic.start()
