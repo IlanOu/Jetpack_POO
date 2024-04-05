@@ -4,24 +4,10 @@ from poc_accel import *
 from poc_button import *
 from wireless_manager import *
 from checker import Checker
+from debug import Debug
 
 
 # ----- Accéléromètre
-
-
-class AccelTestDelegate(AccelDelegate):
-    def __init__(self):
-        super().__init__()
-        self.verbose = False
-        
-    def right(self):
-        if self.verbose:
-            print("Direction : Droite")
-        
-    def left(self):
-        if self.verbose:
-            print("Direction : Gauche")
-
 
 i2c = SoftI2C(scl=Pin(22), sda=Pin(21), freq=400000)
 
@@ -30,22 +16,8 @@ accelTestDelegate = AccelTestDelegate()
 # Création du capteur à partir de la classe Accel
 accelero1 = Accel(i2c,0x68, accelTestDelegate)
 
+
 # --------- Bouton
-
-
-
-class ButtonTestDelegate(ButtonDelegate):
-    def __init__(self):
-        super().__init__()
-        self.verbose = False
-        
-    def clicked(self):
-        if self.verbose:
-            print("Le bouton a été pressé")
-        
-    def released(self):
-        if self.verbose:
-            print("Le bouton a été relaché")
 
 PIN_BUTTON_1 = 13
 
@@ -58,7 +30,6 @@ btn1 = Button(PIN_BUTTON_1, buttonTestDelegate)
 
 
 class WebsocketCallback(CommunicationCallback):
-
     def __init__(self):
         pass
     
@@ -72,36 +43,49 @@ class WebsocketCallback(CommunicationCallback):
         print(f"Received {value}")
         
 
+wirelessManager = WirelessManager(wsCallback=WebsocketCallback())
 
-
-# ----------
+# ---------- Setup
 
 testAll = True
 
-allObjects = [btn1, accelero1]
+allObjects = [btn1, accelero1, wirelessManager]
+# allObjects = [wirelessManager]
+
+allChecked = False
 
 if testAll:
-    for obj in allObjects:
-        Checker.check(obj)
+    allChecked = Checker.check(allObjects)
 
+
+
+# ---------- Joystick
 
 class Joystick:
-    def __init__(self, accelerometer, button, wirelessManager):
+    def __init__(self, accelerometer, button, wirelessManager=None):
         self.accelerometer = accelerometer
         self.button = button
-        self.wirelessManager = wirelessManager
         
-        self.socketActive = False
-        self.accelActive = False
+        self.socketActive = True
+        self.accelActive = True
         self.buttonActive = True
-    
-    
-    def send_datas(self, datasToSend):
-        wirelessManager.sendDataToWS(datasToSend)
-    
-    def process(self):
+        
+        self.wirelessManager = None
         
         if self.socketActive:
+            self.wirelessManager = wirelessManager
+            if self.wirelessManager != None :
+                self.wirelessManager.startWSServer()
+    
+    def send_datas(self, datasToSend):
+        self.wirelessManager.sendDataToWS(datasToSend)
+    
+    def process(self):
+        if self.socketActive:
+            if self.wirelessManager == None:
+                Debug.LogWarning("Le wirelessManager n'est pas définis alors que le socket est actif. Le socket a besoin du wirelessManager.")
+                return "stop"
+            
             datasToSend = ""
             if self.accelActive:
                 orientation = self.accelerometer.process()
@@ -114,22 +98,28 @@ class Joystick:
                     datasToSend += "btn-1///"
                 else:
                     datasToSend += "btn-0///"
-                
+            
             self.wirelessManager.process()
             if datasToSend != "":
                 self.send_datas(datasToSend)
-                print("Send datas " + datasToSend)
+                Debug.LogWhisper("Send datas " + datasToSend)
         else:
-            return None
+            Debug.LogWarning("Le socket n'est pas actif. Le programme est prévu pour fonctionner avec un socket actif")
+            return "stop"
+
+
+
 
 
 # --------- Boucle
-"""
-wirelessManager = WirelessManager(wsCallback=WebsocketCallback())
 
-joystick = Joystick(accelero1, btn1, wirelessManager)
-
-while True :
-    joystick.process()
-    sleep(0.25)
-"""
+if allChecked:
+    joystick = Joystick(accelero1, btn1, wirelessManager)
+    
+    while True :
+        value = joystick.process()
+        sleep(0.25)
+        if value == "stop":
+            break
+else:
+    Debug.LogError("Toutes les vérifications des capteurs ne sont pas passées...")

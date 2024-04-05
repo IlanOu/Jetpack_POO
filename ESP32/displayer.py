@@ -37,6 +37,16 @@ class ResultCodes:
                 {"on": 500}
             ]
         },
+        "201": {
+            "name": "Erreur de connexion ❌",
+            "type": "error",
+            "message":"Le serveur n'est pas connecté. Vérifiez si vous êtes bien connecté à internet puis réessayez.",
+            "ledDebug": [
+                {"on": 1000},
+                {"off": 500},
+                {"on": 500}
+            ]
+        },
         "300": {
             "name": "Erreur de branchement ❌",
             "type": "error",
@@ -52,7 +62,7 @@ class ResultCodes:
         "400": {
             "name": "Erreur code utilisateur ❌",
             "type": "error",
-            "message": "Il faut spécifier un code d'erreur. Exemple : `ResultCodes.getCode(\"001\")`",
+            "message": "Hmm... Il semblerait que vous ayez oublié un paramètre ou un valeur... Vérifiez votre code puis réessayez.",
             "ledDebug": [
                 {"on": 500},
                 {"off": 500},
@@ -72,11 +82,15 @@ class ResultCodes:
     def getName(code):
         return ResultCodes._code[code]["name"]
     @staticmethod
+    def getType(code):
+        return ResultCodes._code[code]["type"]
+    @staticmethod
     def getMessage(code):
         return ResultCodes._code[code]["message"]
     @staticmethod
     def getCode(code):
         return ResultCodes._code[code]["ledDebug"]
+    @staticmethod
     def getResult(code):
         return ResultCodes._code[code]
 
@@ -86,13 +100,17 @@ class Displayer:
         pass
     
     @staticmethod
-    def switchLed(isOn):
+    def switchLed(isOn, timeToWait):
         if isOn:
-            Debug.LogWhisper("Led ON")
+            # Debug.LogWhisper("Led ON")
+            for i in range(timeToWait/10):
+                Debug.LogWhisper(i)
+                time.sleep(0.01)
             # Allumer la led
             pass
         else:
-            Debug.LogWhisper("Led OFF")
+            # Debug.LogWhisper("Led OFF")
+            time.sleep(timeToWait/1000)
             # Eteindre la led
             pass
     
@@ -126,10 +144,10 @@ class Displayer:
             elif state.get("off") != None:
                 timeToWait = state["off"]
         
-            Displayer.switchLed(ledOn)
-            time.sleep(timeToWait/1000)
+            Displayer.switchLed(ledOn, timeToWait)
+            # time.sleep(timeToWait/1000)
         
-        Displayer.switchLed(False)
+        # Displayer.switchLed(False)
         
         
         # Print error
@@ -143,4 +161,4 @@ class Displayer:
 
 
 # ----- Test -----
-# Displayer.raiseResult("300")
+# Displayer.raiseResult("200")

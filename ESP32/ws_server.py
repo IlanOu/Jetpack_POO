@@ -104,12 +104,13 @@ class WebSocketServer:
                 print("WebSocket started on ws://%s:%d" % (iface.ifconfig()[0], port))
 
     def _check_new_connections(self, accept_handler):
-        poll_events = self._listen_poll.poll(0)
-        if not poll_events:
-            return
+        if self._listen_poll != None:
+            poll_events = self._listen_poll.poll(0)
+            if not poll_events:
+                return
 
-        if poll_events[0][1] & uselect.POLLIN:
-            accept_handler()
+            if poll_events[0][1] & uselect.POLLIN:
+                accept_handler()
 
     def _accept_conn(self):
         cl, remote_addr = self._listen_s.accept()

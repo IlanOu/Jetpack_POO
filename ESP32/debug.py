@@ -1,4 +1,3 @@
-
 class Colors:
     HEADER = '\033[95m'
     OK_BLUE = '\033[94m'
@@ -26,10 +25,10 @@ class Colors:
     ENDC = '\033[0m'
 
 class Debug():
-    
     def __init__(self):
         pass
     
+    verbose = True
     
     @staticmethod
     def Log(message):
@@ -40,9 +39,10 @@ class Debug():
     
     @staticmethod
     def LogWhisper(message):
-        print(Colors.DARK_GRAY + Colors.DIM + Colors.ITALIC, end="")
-        print(message, end="")
-        print(Colors.ENDC)
+        if Debug.verbose:
+            print(Colors.DARK_GRAY + Colors.DIM + Colors.ITALIC, end="")
+            print(message, end="")
+            print(Colors.ENDC)
     
     
     @staticmethod
@@ -64,4 +64,3 @@ class Debug():
         print(Colors.FAIL + Colors.BOLD, end="")
         print(message, end="")
         print(Colors.ENDC)
-    

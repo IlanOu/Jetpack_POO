@@ -1,7 +1,7 @@
-import machine
+# import machine
 import poc_tools
 from checker import CheckableClass
-
+from debug import Debug
 
 class AccelDelegate:
     def __init__(self):
@@ -14,6 +14,19 @@ class AccelDelegate:
         pass
 
 
+
+class AccelTestDelegate(AccelDelegate):
+    def __init__(self):
+        super().__init__()
+        self.verbose = False
+        
+    def right(self):
+        if self.verbose:
+            Debug.LogWhisper("Direction : Droite")
+        
+    def left(self):
+        if self.verbose:
+            Debug.LogWhisper("Direction : Gauche")
 
 class AccelTraductor:
     def __init__(self):
@@ -102,9 +115,16 @@ class Accel(CheckableClass):
     def __init__(self, i2c, addr=0x68, delegate=None):
         self.iic = i2c
         self.addr = addr
-        self.iic.start()
-        self.iic.writeto(self.addr, bytearray([107, 0]))
-        self.iic.stop()
+        
+        self.exception = False
+        
+        try:
+            self.iic.start()
+            self.iic.writeto(self.addr, bytearray([107, 0]))
+            self.iic.stop()
+        except:
+            self.exception = True
+        
         
         self.delegate = delegate
         
@@ -112,10 +132,18 @@ class Accel(CheckableClass):
     
     
     def test(self):
-        return {
-            "result": "100",
+        Debug.LogWhisper("Start testing button")
+        result_code = "100"
+        
+        if self.exception:
+            result_code = "300"
+        
+        Debug.LogWhisper("Stop testing button")
+        
+        return [{
+            "result": result_code,
             "class": self.__class__
-            }
+        }]
 
     def get_raw_values(self):
         self.iic.start()
