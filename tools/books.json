@@ -1,0 +1,18 @@
+{
+    "b-0": {
+        "name": "Le livre 0",
+        "summary": "C'est l'histoire de la vie"
+    },
+    "b-1": {
+        "name": "Le livre 1",
+        "summary": "C'est l'histoire de la vie"
+    },
+    "b-2": {
+        "name": "Le livre 2",
+        "summary": "C'est l'histoire de la vie"
+    },
+    "b-3": {
+        "name": "Le livre 3",
+        "summary": "C'est l'histoire de la vie"
+    }
+}
