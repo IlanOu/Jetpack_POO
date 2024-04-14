@@ -30,7 +30,6 @@ checker = Checker()
 current_user = checker.check_user("0")
 
 
-
 # Recommendation
 # ---------------------------------------------------------------------------- #
 recommender = BookRecommender()
@@ -51,8 +50,8 @@ Debug.Log(f"{book.summary}")
 
 # Say hello
 # ---------------------------------------------------------------------------- #
-say = True
-if say:
+speek = False
+if speek:
     text = ""
     text += "Bonjour, " + current_user.name + " !"
     Speaker.say(text)
@@ -68,7 +67,6 @@ if say:
     text += f"{book.summary}"
     
     Speaker.say(text)
-
 
 
 # Success
