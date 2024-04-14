@@ -1,18 +1,30 @@
 {
     "b-0": {
-        "name": "Le livre 0",
-        "summary": "C'est l'histoire de la vie"
+        "title": "Le livre 0",
+        "author": "Jean-Claude Vandam",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "S-F"
     },
     "b-1": {
-        "name": "Le livre 1",
-        "summary": "C'est l'histoire de la vie"
+        "title": "Le livre 1",
+        "author": "Dumbledore",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Bande-Dessinée",
+        "style": "Romance"
     },
     "b-2": {
-        "name": "Le livre 2",
-        "summary": "C'est l'histoire de la vie"
+        "title": "Le livre 2",
+        "author": "Le Père Fouras",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Manga",
+        "style": "Fantaisie"
     },
     "b-3": {
-        "name": "Le livre 3",
-        "summary": "C'est l'histoire de la vie"
+        "title": "Le livre 3",
+        "author": "Forest Gump",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "Fantaisie"
     }
 }
