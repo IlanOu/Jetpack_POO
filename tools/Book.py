@@ -1,4 +1,4 @@
-from Singleton import singleton
+from toolbox.Singleton import singleton
 
 
 # ---------------------------------------------------------------------------- #

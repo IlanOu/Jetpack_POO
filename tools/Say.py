@@ -25,18 +25,23 @@ class GttsEngine(TTSEngine):
     """
     def say(self, text: str):
         import gtts
-        from playsound import playsound
+        from pydub import AudioSegment
+        import simpleaudio as sa
         import os
         
-        tts = gtts.gTTS(text, lang='fr')
+        speech = gtts.gTTS(text, lang='fr')
+        speech.save('sample.mp3')
         
-        port = 1
-        while os.path.exists(f"temp{port}.mp3"):
-            port += 1
-        os.rename("temp.mp3", f"temp{port}.mp3")
+        # Convertir le fichier MP3 en WAV
+        audio = AudioSegment.from_file("sample.mp3", format="mp3")
+        audio.export("sample.wav", format="wav")
         
-        playsound(f"temp{port}.mp3")
-        os.remove(f"temp{port}.mp3")
+        wave_obj = sa.WaveObject.from_wave_file('sample.wav')
+        play_obj = wave_obj.play()
+        play_obj.wait_done()
+        
+        os.remove('sample.mp3')
+        os.remove('sample.wav')
 
 class Speaker:
     """

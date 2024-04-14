@@ -1,6 +1,6 @@
-from Debug import Debug
+from toolbox.Debug import Debug
 from Auth import Authenticator
-from Say import Speaker
+from Say import Speaker, GttsEngine
 from Recommendation import BookRecommender
 
 Debug.prefixActive = False
@@ -50,23 +50,23 @@ Debug.Log(f"{book.summary}")
 
 # Say hello
 # ---------------------------------------------------------------------------- #
-speek = False
+speek = True
 if speek:
     text = ""
     text += "Bonjour, " + current_user.name + " !"
-    Speaker.say(text)
+    Speaker.say(text, GttsEngine())
     
     
     text = ""
     text += f"Recommandations pour '{book.title}' :"
     text += ", ".join(map(lambda x: x.title, recommendations))
-    Speaker.say(text)
+    Speaker.say(text, GttsEngine())
     
     text = ""
     text += f"Résumé pour '{book.title}' :"
     text += f"{book.summary}"
     
-    Speaker.say(text)
+    Speaker.say(text, GttsEngine())
 
 
 # Success
