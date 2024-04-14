@@ -2,7 +2,6 @@ from Debug import Debug
 from Auth import Authenticator
 from Say import Speaker
 from Recommendation import BookRecommender
-from Book import BooksManager
 
 Debug.prefixActive = False
 
@@ -43,12 +42,32 @@ for rec in recommendations:
     Debug.Log(f"- {rec.title} (par {rec.author})")
 
 
+# Summary
+# ---------------------------------------------------------------------------- #
+Debug.Log(f"Résumé pour '{book.title}' :")
+Debug.Log(f"{book.summary}")
+
+
 
 # Say hello
 # ---------------------------------------------------------------------------- #
-Speaker.say("Bonjour, " + current_user.name + " !")
-Speaker.say(f"Recommandations pour '{book.title}' :")
-Speaker.say(", ".join(map(lambda x: x.title, recommendations)))
+say = True
+if say:
+    text = ""
+    text += "Bonjour, " + current_user.name + " !"
+    Speaker.say(text)
+    
+    
+    text = ""
+    text += f"Recommandations pour '{book.title}' :"
+    text += ", ".join(map(lambda x: x.title, recommendations))
+    Speaker.say(text)
+    
+    text = ""
+    text += f"Résumé pour '{book.title}' :"
+    text += f"{book.summary}"
+    
+    Speaker.say(text)
 
 
 
