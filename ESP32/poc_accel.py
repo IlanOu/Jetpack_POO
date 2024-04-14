@@ -179,7 +179,7 @@ class Accel(CheckableClass):
     def process(self):
         values = self.get_values()
         
-        mapped_values = self.traductor(values)
+        mapped_values = self.traductor.traduce(values)
         
         if mapped_values["x"] > 50:
             self.delegate.right()
