@@ -16,7 +16,7 @@ print(Colors.UNDERLINE + "Hello" + Colors.ENDC)
 
 import datetime
 import inspect
-
+import sys
 
 class Style:
     HEADER = '\033[95m'
@@ -48,6 +48,7 @@ class Style:
 class Debug:
     verbose = True
     prefixActive = True
+    blocking = True
 
     @staticmethod
     def _get_log_prefix(level, class_name, func_name, line_number):
@@ -101,6 +102,10 @@ class Debug:
 
     @staticmethod
     def LogError(message):
+        Debug.prefixActive = True
         Debug._log(message, Style.FAIL + Style.BOLD)
+        if Debug.blocking == True:
+            sys.exit()
+        Debug.prefixActive = False
 
 
