@@ -54,7 +54,7 @@ class UserManager:
         import json
         
                 
-        with open('./users.json', 'r') as f:
+        with open('./users.json', 'r', encoding='utf-8') as f:
             user_data_dicts = json.load(f)
            
           

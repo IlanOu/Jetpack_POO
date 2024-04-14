@@ -18,7 +18,7 @@
         "author": "Le Père Fouras",
         "summary": "C'est l'histoire de la vie",
         "type": "Manga",
-        "style": "Fantaisie"
+        "style": "Horreur"
     },
     "b-3": {
         "title": "Le livre 3",
@@ -26,5 +26,26 @@
         "summary": "C'est l'histoire de la vie",
         "type": "Roman",
         "style": "Fantaisie"
+    },
+    "b-4": {
+        "title": "Le livre 4",
+        "author": "Jean Jesus",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Bande-Dessinée",
+        "style": "Fantaisie"
+    },
+    "b-5": {
+        "title": "Le livre 5",
+        "author": "Castex",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Manga",
+        "style": "S-F"
+    },
+    "b-6": {
+        "title": "Le livre 6",
+        "author": "Dupont T",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "Horreur"
     }
 }

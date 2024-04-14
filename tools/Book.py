@@ -65,7 +65,7 @@ class BooksManager:
     def _create_books(self):
         import json
                 
-        with open('./books.json', 'r') as f:
+        with open('./books.json', 'r', encoding='utf-8') as f:
             book_data_dicts = json.load(f)
            
             for id, book_data in book_data_dicts.items():
