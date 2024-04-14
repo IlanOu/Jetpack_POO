@@ -1,7 +1,8 @@
 from Debug import Debug
 from Auth import Authenticator
 from Say import Speaker
-
+from Recommendation import BookRecommender
+from Book import BooksManager
 
 Debug.prefixActive = False
 
@@ -30,9 +31,25 @@ checker = Checker()
 current_user = checker.check_user("0")
 
 
+
+# Recommendation
+# ---------------------------------------------------------------------------- #
+recommender = BookRecommender()
+book = current_user.books_read[0]
+recommendations = recommender.recommend_books(book)
+
+Debug.Log(f"Recommandations pour '{book.title}' :")
+for rec in recommendations:
+    Debug.Log(f"- {rec.title} (par {rec.author})")
+
+
+
 # Say hello
 # ---------------------------------------------------------------------------- #
 Speaker.say("Bonjour, " + current_user.name + " !")
+Speaker.say(f"Recommandations pour '{book.title}' :")
+Speaker.say(", ".join(map(lambda x: x.title, recommendations)))
+
 
 
 # Success
