@@ -25,6 +25,7 @@ try:
 except KeyboardInterrupt:
     GPIO.cleanup()
 
+
 """
 
 # Using MFRC522
