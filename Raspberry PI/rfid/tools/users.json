@@ -1,1 +1,50 @@
-{"21": {"name": "", "books_read": []}, "22": {"name": "", "books_read": []}}
+{
+  "0": {
+    "name": "Roberto",
+    "books_read": [
+      "b-0",
+      "b-1"
+    ]
+  },
+  "1": {
+    "name": "Giselle",
+    "books_read": [
+      "b-1",
+      "b-3"
+    ]
+  },
+  "19": {
+    "name": "Bernardo",
+    "books_read": [
+      "b-2",
+      "b-3"
+    ]
+  },
+  "20": {
+    "name": "Michelangelo",
+    "books_read": [
+      "b-0",
+      "b-2"
+    ]
+  },
+  "23": {
+    "name": "Donatello",
+    "books_read": [
+      "b-0",
+      "b-3"
+    ]
+  },
+  "24": {
+    "name": "Leonardo",
+    "books_read": [
+      "b-1",
+      "b-0"
+    ]
+  },
+  "63": {
+    "name": "",
+    "books_read": [
+      "b-0"
+    ]
+  }
+}

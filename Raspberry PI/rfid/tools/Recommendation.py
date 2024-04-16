@@ -1,5 +1,5 @@
 from collections import defaultdict
-from Book import BooksManager
+from .Book import BooksManager
 
 class BookRecommender:
     def __init__(self):

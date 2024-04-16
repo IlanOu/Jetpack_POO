@@ -1,5 +1,5 @@
-from Book import *
-from toolbox.Singleton import singleton
+from .Book import *
+from .toolbox.Singleton import singleton
 
 
 
@@ -53,8 +53,7 @@ class UserManager:
     def _create_users(self):
         import json
         
-                
-        with open('./users.json', 'r', encoding='utf-8') as f:
+        with open('./tools/users.json', 'r', encoding='utf-8') as f:
             user_data_dicts = json.load(f)
            
           
