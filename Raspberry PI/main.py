@@ -85,27 +85,19 @@ import websocket
 
 
 class Client:
-    def __init__(self, url, trigger_pin=14, echo_pin=15):
-        # URL du serveur WebSocket auquel se connecter
+    def __init__(self, url):
         self.url = url
-        
-        # Definir les broches GPIO
-        self.trigger_pin = trigger_pin
-        self.echo_pin = echo_pin
-        
+        self.ws = None
         self.isOpened = False
-        
+
     def initialize(self):
-        # Initialisation du client WebSocket
-        ws = websocket.WebSocketApp(self.url,
-                                    on_message=self.on_message,
-                                    on_error=self.on_error,
-                                    on_close=self.on_close)
-        ws.on_open = self.on_open
-                
-        # Lancement de la boucle d'événements
-        ws.run_forever()
-    
+        self.ws = websocket.WebSocketApp(self.url,
+                                        on_message=self.on_message,
+                                        on_error=self.on_error,
+                                        on_close=self.on_close)
+        self.ws.on_open = self.on_open
+        self.ws.run_forever()
+
     def on_message(self, ws, message):
         print(f"Message reçu : {message}")
         ws.send("Bonjour, serveur WebSocket!")
@@ -114,7 +106,7 @@ class Client:
         print(f"Erreur : {message}")
         self.isOpened = False
 
-    def on_close(self, msg, a, b):
+    def on_close(self, ws):
         print("Connexion fermée")
         self.isOpened = False
 
@@ -123,21 +115,22 @@ class Client:
         self.isOpened = True
 
 
+# Création de l'instance du capteur de distance
+delegate = DistanceTestDelegate()
+sensor = DistanceSensor(14, 15, delegate)
 
-if __name__ == "__main__":
-    client = Client("ws://192.168.40.62:3000", 14, 15)
-    client.initialize()
-    
-    # Creer une instance du capteur de distance
-    sensor = DistanceSensor(self.trigger_pin, self.echo_pin)
-    
+client = Client("ws://192.168.182.62:3000")
+client.initialize()
+print("Hello")
+
+try:
     while True:
         if client.isOpened:
-            # Executer la mesure
-                distance = sensor.measure_distance()
-                distance = str(int(distance * 100)/100)
-                ws.send("dist-" + distance)
-                print("Send distance : " + distance)
-                time.sleep(0.25)
-    
-    
+            distance = sensor.measure_distance()
+            distance = str(int(distance * 100)/100)
+            client.ws.send("dist-" + distance)
+            print("Send distance : " + distance)
+            time.sleep(0.25)
+except KeyboardInterrupt:
+    client.ws.close()
+    sensor.cleanup()
