@@ -24,7 +24,7 @@ function setupClient() {
     console.log(">>> En attente de connexion...")
 
     // Connexion au serveur WebSocket
-    socket = new WebSocket('ws://192.168.86.62:3000');
+    socket = new WebSocket('ws://192.168.182.62:3000');
 
     // Événement déclenché lorsque la connexion est établie
     socket.onopen = function(event) {
