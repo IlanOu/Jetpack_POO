@@ -1,0 +1,28 @@
+{
+    "0": {
+        "name": "Roberto",
+        "books_read": [
+            "b-0",
+            "b-1"
+        ]
+    },
+    "1": {
+        "name": "Giselle",
+        "books_read": [
+            "b-1",
+            "b-3"
+        ]
+    },
+    "19": {
+        "name": "",
+        "books_read": []
+    },
+    "20": {
+        "name": "",
+        "books_read": []
+    },
+    "22": {
+        "name": "",
+        "books_read": []
+    }
+}

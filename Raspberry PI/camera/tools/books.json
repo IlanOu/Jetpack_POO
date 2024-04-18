@@ -1,0 +1,51 @@
+{
+    "b-0": {
+        "title": "Le livre 0",
+        "author": "Jean-Claude Vandam",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "S-F"
+    },
+    "b-1": {
+        "title": "Le livre 1",
+        "author": "Dumbledore",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Bande-Dessinée",
+        "style": "Romance"
+    },
+    "b-2": {
+        "title": "Le livre 2",
+        "author": "Le Père Fouras",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Manga",
+        "style": "Horreur"
+    },
+    "b-3": {
+        "title": "Le livre 3",
+        "author": "Forest Gump",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "Fantaisie"
+    },
+    "b-4": {
+        "title": "Le livre 4",
+        "author": "Jean Jesus",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Bande-Dessinée",
+        "style": "Fantaisie"
+    },
+    "b-5": {
+        "title": "Le livre 5",
+        "author": "Castex",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Manga",
+        "style": "S-F"
+    },
+    "b-6": {
+        "title": "Le livre 6",
+        "author": "Dupont T",
+        "summary": "C'est l'histoire de la vie",
+        "type": "Roman",
+        "style": "Horreur"
+    }
+}
